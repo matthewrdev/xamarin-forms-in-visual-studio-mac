@@ -3,10 +3,10 @@
   xmlns:behaviours="clr-namespace:XamarinFormsUIs.Behaviours"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   x:Class="XamarinFormsUIs.Views.ImageAssetBrowserView" xmlns:converters="clr-namespace:XamarinFormsUIs.Converters"
-             WidthRequest="450" HeightRequest="300">
+             WidthRequest="700" HeightRequest="400">
   <ContentPage.Resources>
     <ResourceDictionary>
-            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="selectedItemEventArgsToSelectedItemConverter" />
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="selectedItemEventArgsToSelectedItemConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
     <ContentPage.Content>
@@ -14,17 +14,10 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Project:"/>
                 <Picker ItemsSource="{Binding ProjectNames}"
-                        
                   SelectedIndex="{Binding SelectedProjectIndex}">
-                    <Picker.Behaviors>
-                        <behaviours:EventToCommandBehavior EventName="SelectedIndexChanged"
-                          Command="{Binding OnProjectChanged}"
-                          CommandParameter="{Binding SelectedProjectIndex}"
-                           Converter="{StaticResource selectedItemEventArgsToSelectedItemConverter}"/>
-                    </Picker.Behaviors>
                 </Picker>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <ListView ItemsSource="{Binding ProjectImages}" WidthRequest="150">
                     <ListView.Behaviors>
                         <behaviours:EventToCommandBehavior EventName="ItemSelected"
@@ -38,7 +31,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Image Source="{Binding SelectedImage}" WidthRequest="200" HeightRequest="200" Aspect="AspectFit"/>
+                <StackLayout>
+                    <Image Source="{Binding SelectedImage}"
+                      WidthRequest="200"
+                      HeightRequest="200"
+                      Aspect="AspectFit"/>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

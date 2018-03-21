@@ -14,8 +14,8 @@ namespace XamarinFormsUIs.ViewModels
 
     public class ImageAssetBrowserViewModel : BaseViewModel
     {
-        private ObservableCollection<TextDocument> _ProjectImages;
-        public ObservableCollection<TextDocument> ProjectImages
+        private List<TextDocument> _ProjectImages;
+        public List<TextDocument> ProjectImages
         {
             get
             {
@@ -37,6 +37,7 @@ namespace XamarinFormsUIs.ViewModels
             this.solution = currentSolution;
             Projects = solution.Projects.ToList();
             ProjectNames = Projects.Select(p => p.Name).ToList();
+            ProjectImages = Projects[SelectedProjectIndex].AdditionalDocuments.Where(IsImage).ToList(); 
         }
 
         private int _selectedProjectIndex = 0;
@@ -49,19 +50,8 @@ namespace XamarinFormsUIs.ViewModels
             set
             {
                 SetProperty(value, ref _selectedProjectIndex);
-            }
-        }
 
-        public ICommand OnProjectChanged
-        {
-            get
-            {
-                return new Command<int>((int index) =>
-                {
-                    var images = Projects[index].AdditionalDocuments.Where(IsImage);
-                    
-                    _ProjectImages = new ObservableCollection<TextDocument>(images);
-                });
+                _ProjectImages = Projects[SelectedProjectIndex].AdditionalDocuments.Where(IsImage).ToList();
             }
         }
 
@@ -78,9 +68,9 @@ namespace XamarinFormsUIs.ViewModels
         {
             get
             {
-                return new Command((arg) =>
+                return new Command<SelectedItemChangedEventArgs>((arg) =>
                 {
-                    var doc = arg as TextDocument;
+                    var doc = arg.SelectedItem as TextDocument;
 
                     if (doc != null)
                     {
