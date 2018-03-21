@@ -14,15 +14,11 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
     <Folder Include="Assets\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Compile Remove="ViewModels\TranslationViewCellModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\ExtensionInfoView.xaml.cs">
-      <DependentUpon>ExtensionInfoView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\doggo.jpg" />
@@ -36,5 +32,15 @@
     <AddinFile Include="Assets\doggo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AddinFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\ImageAssetBrowserView.xaml.cs">
+      <DependentUpon>ImageAssetBrowserView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AddinReference Include="MonoDevelop.CSharpBinding" />
+    <AddinReference Include="MonoDevelop.Refactoring" />
+    <AddinReference Include="MonoDevelop.Xamarin.Ide" />
   </ItemGroup>
 </Project>

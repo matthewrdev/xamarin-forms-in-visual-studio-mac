@@ -5,14 +5,14 @@
     </Extension>
 
     <Extension path="/MonoDevelop/Ide/Commands">
-        <Command _label="Show Xamarin.Forms User Interface" 
-                 id="XamarinFormsUIs.Commands.ShowWindowCommand"
-                 description="Shows a Xamarin.Forms powered UI."
-                 defaultHandler="XamarinFormsUIs.Commands.ShowWindowCommand"/>
+        <Command _label="Browse Image Assets" 
+                 id="XamarinFormsUIs.Commands.BrowseImageAssetsCommand"
+                 description="Allows you to visually explore the image assets in your solution."
+                 defaultHandler="XamarinFormsUIs.Commands.BrowseImageAssetsCommand"/>
     </Extension>
     
     <Extension path = "/MonoDevelop/Ide/MainMenu/Tools">
-        <CommandItem id="XamarinFormsUIs.Commands.ShowWindowCommand"/>
+        <CommandItem id="XamarinFormsUIs.Commands.BrowseImageAssetsCommand"/>
     </Extension>
     
 </ExtensionModel>

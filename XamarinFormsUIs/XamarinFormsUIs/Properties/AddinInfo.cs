@@ -36,4 +36,4 @@ using Mono.Addins.Description;
 [assembly: AddinName("XamarinFormsUIs")]
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("XamarinFormsUIs")]
-[assembly: AddinAuthor("Mikayla Hutchinson")]
+[assembly: AddinAuthor("Matthew Robbins")]
