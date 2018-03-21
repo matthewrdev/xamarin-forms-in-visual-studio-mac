@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  x:Class="XamarinFormsUIs.Views.ExtensionInfoView">
+    <ContentPage.Content>
+        <StackLayout Padding="20,0">
+            <Image x:Name="image" WidthRequest="200" HeightRequest="200"/>
+            <Label Text="{Binding ExtensionName}" HorizontalOptions="Center"/>
+            <Label Text="{Binding ExtensionAuthor}" HorizontalOptions="Center"/>
+            <Button Text="Show Me The Doggo!" Command="{Binding ShowMeTheDoggoCommand}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Show Version Information:"/>
+                <Switch x:Name="showExtraInfoSwitch" IsToggled="false"/>
+            </StackLayout>
+            <Label Text="{Binding ExtensionVersion}" IsVisible="{Binding Source={x:Reference showExtraInfoSwitch}, Path=IsToggled}" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,12 @@
+﻿private $type$ _$name$;
+public $type$ $name$
+{
+  get
+  {
+    return _$name$;
+  }
+  set
+  {
+    SetProperty(value, ref _$name$);
+  }
+}

@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoDevelop.Addins" Version="0.4.4" />
+    <PackageReference Include="Xamarin.Forms" Version="2.6.0.251661" />
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="2.6.0.251661" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Snippets\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
+    <Folder Include="Assets\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Remove="ViewModels\TranslationViewCellModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\ExtensionInfoView.xaml.cs">
+      <DependentUpon>ExtensionInfoView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\doggo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Assets\doggo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AddinFile Include="Assets\doggo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AddinFile>
+  </ItemGroup>
+</Project>
