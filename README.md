@@ -17,7 +17,7 @@ Therefore, there are compelling reasons to use Xamarin.Forms to build Visual Stu
 
 There are huge productivity gains here!
 
-In the tutorial below, I'll be walking through how we can use Xamarin.Forms inside Visual Studio Mac. To prove that this technique is not just a toy, we'll be building an image asset browser you can use to visually explore images inside a solution. When I built this
+In the tutorial below, I'll be walking through how we can use Xamarin.Forms inside Visual Studio Mac to build rich user interfaces. To prove that this technique is not just a toy, we'll be building an image asset browser you can use to visually explore images inside a solution. When I built this
 
 ## Using Xamarin.Forms Inside Visual Studio Mac
 
@@ -40,6 +40,7 @@ If you have an existing extension, you'll need to upgrade your main extensions p
   * Xamarin.Forms.Platform.GTK.
 
  * Initialise Xamarin.Forms, create a startup command to do so.
+
 
 
  * Create our Xamarin.Forms .

@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoDevelop.Addins" Version="0.4.4" />
-    <PackageReference Include="Xamarin.Forms" Version="2.6.0.251661" />
     <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="2.6.0.251661" />
   </ItemGroup>
   <ItemGroup>
