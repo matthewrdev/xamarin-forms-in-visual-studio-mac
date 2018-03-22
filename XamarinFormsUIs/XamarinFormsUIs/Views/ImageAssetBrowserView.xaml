@@ -27,9 +27,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Project.Name}" VerticalOptions="Center"/>
-                                    <Label Text=": " VerticalOptions="Center"/>
+                                <StackLayout Orientation="Horizontal" Spacing="0" Padding="0,10">
                                     <Label Text="{Binding Name, Converter={StaticResource filePathToFileNameConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                                 </StackLayout>
                             </ViewCell>

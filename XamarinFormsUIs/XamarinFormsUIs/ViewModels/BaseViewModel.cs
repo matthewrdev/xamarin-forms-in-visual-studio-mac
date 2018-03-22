@@ -13,5 +13,19 @@ namespace XamarinFormsUIs.ViewModels
             storage = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private bool _isBusy = false;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                SetProperty(value, ref _isBusy);
+            }
+        }
+
     }
 }

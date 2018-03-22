@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using Xamarin.Forms;
 
-
 namespace XamarinFormsUIs.Converters
 {
     [ValueConversion(typeof(string), typeof(string))]
