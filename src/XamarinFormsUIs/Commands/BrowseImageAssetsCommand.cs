@@ -1,12 +1,5 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MonoDevelop.Components.Commands;
-using MonoDevelop.Ide;
-using Xamarin.Forms.Platform.GTK;
+﻿using MonoDevelop.Components.Commands;
 using XamarinFormsUIs.Windows;
-using Xwt;
-using Xwt.GtkBackend;
 
 namespace XamarinFormsUIs.Commands
 {

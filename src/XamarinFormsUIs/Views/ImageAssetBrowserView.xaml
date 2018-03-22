@@ -2,24 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:behaviours="clr-namespace:XamarinFormsUIs.Behaviours"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  x:Class="XamarinFormsUIs.Views.ImageAssetBrowserView" xmlns:converters="clr-namespace:XamarinFormsUIs.Converters"
-             WidthRequest="700" HeightRequest="400">
+  x:Class="XamarinFormsUIs.Views.ImageAssetBrowserView"
+  xmlns:converters="clr-namespace:XamarinFormsUIs.Converters"
+  WidthRequest="700"
+  HeightRequest="400">
   <ContentPage.Resources>
     <ResourceDictionary>
-            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="selectedItemEventArgsToSelectedItemConverter"/>
-            <converters:FilePathToFileNameConverter x:Key="filePathToFileNameConverter" />
+      <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+      <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="selectedItemEventArgsToSelectedItemConverter"/>
+      <converters:FilePathToFileNameConverter x:Key="filePathToFileNameConverter" />
     </ResourceDictionary>
   </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
-                <Label Text="Project:"/>
-                <Picker ItemsSource="{Binding ProjectNames}"
+                <Label VerticalOptions="Center" Text="Projects:" FontSize="Large" FontAttributes="Bold"/>
+                <Picker VerticalOptions="Center" ItemsSource="{Binding ProjectNames}"
                   SelectedIndex="{Binding SelectedProjectIndex}">
                 </Picker>
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <ListView ItemsSource="{Binding ProjectImages}" WidthRequest="150">
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"/>
+                <ListView ItemsSource="{Binding ProjectImages}"
+                  IsVisible="{Binding IsBusy, Converter={StaticResource inverseBooleanConverter}}"
+                  WidthRequest="150">
                     <ListView.Behaviors>
                         <behaviours:EventToCommandBehavior EventName="ItemSelected"
                           Command="{Binding OnImageSelected}"/>
@@ -27,14 +33,15 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Orientation="Horizontal" Spacing="0" Padding="0,10">
+                                <StackLayout Orientation="Vertical" Spacing="0" Padding="0,0,0,1">
                                     <Label Text="{Binding Name, Converter={StaticResource filePathToFileNameConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                    <ContentView HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#4E4E4E"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackLayout VerticalOptions="Center">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="End">
                     <Image Source="{Binding SelectedImage}"
                            WidthRequest="300" 
                            HeightRequest="300"

@@ -17,7 +17,9 @@ namespace XamarinFormsUIs.Converters
 
             var input = (string)value;
 
-            return Path.GetFileName(input);
+            var fi = new FileInfo(input);
+
+            return Path.Combine(fi.Directory.Name, fi.Name);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

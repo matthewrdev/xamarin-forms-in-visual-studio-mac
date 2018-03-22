@@ -1,30 +1,27 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
-using XamarinFormsUIs.ViewModels;
-using System.Windows.Input;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.CodeAnalysis;
+using Xamarin.Forms;
 using XamarinFormsUIs.Helpers;
 
 namespace XamarinFormsUIs.ViewModels
 {
-
-
     public class ImageAssetBrowserViewModel : BaseViewModel
     {
-        private List<TextDocument> _ProjectImages;
+        private List<TextDocument> _projectImages;
         public List<TextDocument> ProjectImages
         {
             get
             {
-                return _ProjectImages;
+                return _projectImages;
             }
             set
             {
-                SetProperty(value, ref _ProjectImages);
+                SetProperty(value, ref _projectImages);
             }
         }
 
@@ -38,7 +35,8 @@ namespace XamarinFormsUIs.ViewModels
             this.solution = currentSolution;
             Projects = solution.Projects.ToList();
             ProjectNames = Projects.Select(p => p.Name).ToList();
-            ProjectImages = Projects[SelectedProjectIndex].AdditionalDocuments.Where(IsImage).ToList(); 
+
+            UpdateProjectImagesAsync().ConfigureAwait(false);
         }
 
         private int _selectedProjectIndex = 0;
@@ -50,10 +48,47 @@ namespace XamarinFormsUIs.ViewModels
             }
             set
             {
+                bool changed = value != SelectedProjectIndex;
                 SetProperty(value, ref _selectedProjectIndex);
 
-                _ProjectImages = Projects[SelectedProjectIndex].AdditionalDocuments.Where(IsImage).ToList();
+                if (changed)
+                {
+                    UpdateProjectImagesAsync().ConfigureAwait(false);
+                }
             }
+        }
+
+        private Task<bool> UpdateProjectImagesAsync()
+        {
+            return Task.Run(() =>
+            {
+                IsBusy = true;
+                try
+                {
+                    var assets = Projects[SelectedProjectIndex].AdditionalDocuments.Where(IsImage).ToList();
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        try
+                        {
+                            ProjectImages = assets;
+                        }
+                        catch
+                        {
+
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+
+                return true;
+            });
         }
 
         private bool IsImage(TextDocument document)
