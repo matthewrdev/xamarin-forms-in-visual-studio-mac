@@ -7,6 +7,7 @@
   <ContentPage.Resources>
     <ResourceDictionary>
             <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="selectedItemEventArgsToSelectedItemConverter"/>
+            <converters:FilePathToFileNameConverter x:Key="filePathToFileNameConverter" />
     </ResourceDictionary>
   </ContentPage.Resources>
     <ContentPage.Content>
@@ -26,16 +27,21 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding Name}" HorizontalOptions="FillAndExpand"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Project.Name}" VerticalOptions="Center"/>
+                                    <Label Text=": " VerticalOptions="Center"/>
+                                    <Label Text="{Binding Name, Converter={StaticResource filePathToFileNameConverter}}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackLayout>
+                <StackLayout VerticalOptions="Center">
                     <Image Source="{Binding SelectedImage}"
-                      WidthRequest="200"
-                      HeightRequest="200"
-                      Aspect="AspectFit"/>
+                           WidthRequest="300" 
+                           HeightRequest="300"
+                           Aspect="AspectFit"/>
+                    <Label HorizontalTextAlignment="Center" Text="{Binding ImageSize}"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.IO;
+using XamarinFormsUIs.Helpers;
 
 namespace XamarinFormsUIs.ViewModels
 {
@@ -80,8 +81,8 @@ namespace XamarinFormsUIs.ViewModels
             }
         }
 
-        private ImageSource _selectedImage;
-        public ImageSource SelectedImage
+        private string _selectedImage;
+        public string SelectedImage
         {
             get
             {
@@ -90,6 +91,35 @@ namespace XamarinFormsUIs.ViewModels
             set
             {
                 SetProperty(value, ref _selectedImage);
+                try
+                {
+                    if (File.Exists(SelectedImage))
+                    {
+                        var size = ImageHelper.GetDimensions(SelectedImage);
+                        ImageSize = "Width: " + size.Width + " | Height: " + size.Height;
+                    }
+                    else
+                    {
+                        ImageSize = "";
+                    }
+                }
+                catch
+                {
+                    ImageSize = "";
+                }
+            }
+        }
+
+        private string _imageSize;
+        public string ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+            set
+            {
+                SetProperty(value, ref _imageSize);
             }
         }
     }
