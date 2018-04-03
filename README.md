@@ -6,7 +6,7 @@
 
 Ever since I commercialised MFractor in June 2017, I've been pulled to the idea of using XAML and Xamarin.Forms to build user interfaces for Visual Studio Mac extensions.
 
-For MFractor, developing tools like the Image Wizard or localisation wizard cost days to weeks of engineering effort. This time-cost makes it prohibitively expensive to develop tools that are UI-centric.
+For MFractor, developing tools like the Image Wizard or localisation wizard cost days to weeks of engineering effort. As a bootstrapped business, this time-cost makes it prohibitively expensive to develop tools that are UI-centric.
 
 Therefore, there are compelling reasons to use Xamarin.Forms to build Visual Studio Mac extensions:
 
@@ -21,7 +21,6 @@ To prove that this technique is valid for production-ready tooling and is not ju
 
 ![The image asset browser allows developers to visually explore the images within projects in their solution](img/image-asset-browser.png)
 
-
 So, read on to learn how to use Xamarin.Forms inside Visual Studio Mac to build rich user interfaces for your tooling.
 
 ## Using Xamarin.Forms Inside Visual Studio Mac
@@ -32,20 +31,19 @@ First things first, you **must** have version 1.4.2 of the Addin Maker installed
 
 Next, you'll need to create a new Visual Studio Mac extension that is an SDK style project and references the NuGet MonoDevelop.Addins v0.4.4. I've found that the Xamarin.Forms bootstrapping process does not work in Visual Studio Mac extensions that are not SDK style projects.
 
-If you have an existing extension, you'll need to upgrade your main extensions project to an SDK style project and reference NuGet MonoDevelop.Addins v0.4.4. I've found the best way to do this is to create a new extension project within
+If you have an existing extension, you'll need to upgrade your main extensions project to an SDK style project and reference NuGet MonoDevelop.Addins v0.4.4. The best way to do this is to create a new extension project within the existing solution and then copy paste all the code files from the old project into the new project.
 
+After you've setup your project, it's time to set up Xamarin.Forms inside our extension.
 
- * Add Xamarin.Forms and Xamarin.Forms.Platform.GTK nugets to the project.
+Firstly, we need to add the `Xamarin.Forms.Platform.GTK` nuget into our project. At the time of writing, this is only available within the Xamarin.Forms nightly builds. You can find instructions to add the nightly builds feed [here](https://blog.xamarin.com/try-the-latest-in-xamarin-forms-with-nightly-builds/).
 
- Next, we need to add Xamarin.Forms into our project.
+In the solution explorer panel, locate your extensions project, open **Dependencies** and then double click on the **NuGet** item.
 
- Add the following  packages into your Visual Studio Mac extension:
-  * Xamarin.Forms.Platform.GTK.
+Once the package explorer has opened, search for **Xamarin.Forms.Platform.GTK** and then add it.
 
- * Initialise Xamarin.Forms, create a startup command to do so.
+Before we can show any user interfaces built using Xamarin.Forms, we need to startup Xamarin.Forms by calling `Forms.Init()`.
 
-Before we can build any UIs  Now we need to startup Xamarin.Forms
-
+We do this by creating a `CommandHandler` that invokes `Forms.Init()` within its `Run()` method like so:
 
 **InitXamarinFormsCommand.cs**
 ```
@@ -68,23 +66,18 @@ And then in our `Manifest.addin.xml` we insert our `InitXamarinFormsCommand` int
 </Extension>
 ```
 
-When the IDE opens, the `Run()` method of `InitXamarinFormsCommand` will be invoked.
+When the IDE opens, the `Run()` method of `InitXamarinFormsCommand` will be invoked and it will startup Xamarin.Forms!
 
-In future, Microsoft and the Visual Studio Mac team will need
+Next, it's time to create our user interface.
 
- * Create our Xamarin.Forms user interface.
+As we are now using Xamarin.Forms, we can create our view in XAML and also create an accompanying view model.
 
- * [ImageAssetBrowserView.xaml](src/XamarinFormsUIs/Views/ImageAssetBrowserView.xaml): Our XAML view
- * [ImageAssetBrowserViewModel.cs](src/XamarinFormsUIs/ViewModels/ImageAssetBrowserViewModel.cs):
+ * [ImageAssetBrowserView.xaml](src/XamarinFormsUIs/Views/ImageAssetBrowserView.xaml)
+ * [ImageAssetBrowserViewModel.cs](src/XamarinFormsUIs/ViewModels/ImageAssetBrowserViewModel.cs)
 
-Let's quickly run through what we have here:
+To display the user interface for the Image Asset Browser, we use [native embedding](https://blog.xamarin.com/unleashed-embedding-xamarin-forms-in-xamarin-native/) to convert our Xamarin.Forms UI into a conrol that can be used inside a GTK window. As we working with GTK, we call the extension method `.CreateContainer()` to convert a `Xamarin.Forms.Page` into a `Gtk.Container` class that can be inserted into a `Gtk.Window`.
 
- *  
-
-
-
-
- * Use native embedding to inject the view and viewmodel into a GTK dialog.
+Our `ImageAssetBrowserWindow` looks like this:
 
 **ImageAssetBrowserWindow.cs&**
 ```
@@ -104,14 +97,9 @@ public class ImageAssetsWindow : Gtk.Window
 }
 ```
 
-This creates a reusable window
+This creates a window that specifically shows the `ImageAssetBrowserView` and binds it to the `ImageAssetBrowserViewModel`. For the moment, I've
 
-
-
-
- * Show our UI using a command handler in the tools menu.
-
-Lastly, we create a `CommandHandler` to show our user interface:
+Lastly, we create a new `CommandHandler` to show our user interface:
 
 **BrowseImageAssetsCommand.cs**
 ```
@@ -130,7 +118,7 @@ public class BrowseImageAssetsCommand : CommandHandler
 }
 ```
 
-And then we expose the `BrowseImageAssetsCommand` through the tools menu:
+And then we expose the `BrowseImageAssetsCommand` through the tools menu by adding the command into the :
 
 **Manifest.addin.xml**
 ```
@@ -146,7 +134,7 @@ And then we expose the `BrowseImageAssetsCommand` through the tools menu:
 </Extension>
 ```
 
-
+Voila! Now we have a working image browser.
 
 ## Summary
 
@@ -154,5 +142,3 @@ And then we expose the `BrowseImageAssetsCommand` through the tools menu:
 
  * We need to make an official Visual Studio Mac Xamarin.Forms extension to prevent multiple calls to Forms.Init() and potential assembly version conflicts.
  * My
-
-https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Barack_Obama_Mic_Drop_2016.jpg/440px-Barack_Obama_Mic_Drop_2016.jpg
