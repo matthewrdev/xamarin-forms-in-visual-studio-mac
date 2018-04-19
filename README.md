@@ -97,7 +97,7 @@ public class ImageAssetsWindow : Gtk.Window
 }
 ```
 
-This creates a window that specifically shows the `ImageAssetBrowserView` and binds it to the `ImageAssetBrowserViewModel`. For the moment, I've
+This creates a window that specifically shows the `ImageAssetBrowserView` and binds it to the `ImageAssetBrowserViewModel`.
 
 Lastly, we create a new `CommandHandler` to show our user interface:
 
@@ -118,7 +118,7 @@ public class BrowseImageAssetsCommand : CommandHandler
 }
 ```
 
-And then we expose the `BrowseImageAssetsCommand` through the tools menu by adding the command into the :
+And then we expose the `BrowseImageAssetsCommand` through the tools menu by adding the command into the extensions manifest:
 
 **Manifest.addin.xml**
 ```
@@ -134,11 +134,12 @@ And then we expose the `BrowseImageAssetsCommand` through the tools menu by addi
 </Extension>
 ```
 
-Voila! Now we have a working image browser.
+Voila! Now we have a working image browser that's driven using *Xamarin.Forms*!
 
 ## Summary
 
+Creating our user interfaces in Xamarin.Forms for our Visual Studio Mac extension has huge benefits. It's much to build UIs with XAML, we get to used lovely MVVM architecture and Xamarin.Forms is much better documented than Xwt.
 
+Unfortunately, this methodology is not without it's issues. As more extension developers start using this technology, it's that many extension developers will bundling and loading their own Xamarin.Forms binaries, resulting in assembly loading race conditions and versioning mis-matches. This causes big problems issues in Visual Studio for Mac, often causing instability in the core product.
 
- * We need to make an official Visual Studio Mac Xamarin.Forms extension to prevent multiple calls to Forms.Init() and potential assembly version conflicts.
- * My
+In the future, we will need an official Visual Studio Mac Xamarin.Forms extension to prevent multiple calls to Forms.Init() and potential assembly version conflicts.
