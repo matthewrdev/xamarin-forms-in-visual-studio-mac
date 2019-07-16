@@ -2,7 +2,7 @@
 
 *Learn to use Xamarin.Forms to build user interfaces for your Visual Studio Mac extensions.*
 
-## Important 🚨
+## 🚨🚨🚨 Important 🚨🚨🚨
 
 **MFractor has removed all Xamarin.Forms interfaces as of October 2018. Unfortunately, using Xamarin.Forms inside Visual Studio Mac caused instability in both MFractor and Visual Studio Mac itself.**
 
