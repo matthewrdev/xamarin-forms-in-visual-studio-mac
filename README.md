@@ -4,13 +4,15 @@
 
 ## 🚨🚨🚨 Important 🚨🚨🚨
 
-**MFractor has removed all Xamarin.Forms user interfaces as of October 2018.**
+MFractor has removed all Xamarin.Forms user interfaces as of October 2018.
 
-**Unfortunately, using Xamarin.Forms inside Visual Studio Mac caused instability in both MFractor and Visual Studio Mac itself.**
+Unfortunately, using Xamarin.Forms inside Visual Studio Mac caused instability in both MFractor and Visual Studio Mac itself.
 
-**In the end, we decided that this technique was not commercially viable.**
+In the end, we decided that this technique was not commercially viable. If you choose to use Xamarin.Forms to build UIs, proceed with caution.
 
-**If you choose to use Xamarin.Forms to build UIs, proceed with caution.**
+At MFractor, we recommend using [XWT](https://github.com/mono/xwt) to build user interfaces for Visual Studio Mac.
+
+**If you would like guidance on this, please email matthew@mfractor.com. We provide consulting services to assist the development of Visaul Studio Mac extensions and would be happy to help.**
 
 ## Introduction
 
